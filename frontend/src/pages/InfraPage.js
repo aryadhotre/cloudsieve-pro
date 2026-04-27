@@ -12,9 +12,9 @@ const SERVICE_ICONS = {
 };
 
 const SERVICE_URLS = {
-  'Docker': 'https://hub.docker.com',
-  'Terraform': 'https://registry.terraform.io/',
-  'GitHub Actions': 'https://github.com/features/actions',
+  'Docker': 'https://github.com/aryadhotre/cloudsieve-pro/blob/main/docker/Dockerfile.backend',
+  'Terraform': 'https://github.com/aryadhotre/cloudsieve-pro/tree/main/terraform',
+  'GitHub Actions': 'https://github.com/aryadhotre/cloudsieve-pro/actions',
   'Render.com': 'https://dashboard.render.com',
 };
 
