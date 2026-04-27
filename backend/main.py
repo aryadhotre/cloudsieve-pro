@@ -442,3 +442,6 @@ def list_endpoints():
         {"method": "GET", "path": "/infrastructure/status", "description": "Infrastructure resource status"},
         {"method": "GET", "path": "/api/endpoints", "description": "List all API endpoints"},
     ]
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=8001)
