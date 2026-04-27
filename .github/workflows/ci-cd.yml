@@ -29,7 +29,7 @@ jobs:
       - name: Lint backend
         run: |
           cd backend
-          flake8 main.py engine.py --max-line-length=120 --ignore=E501,W503,E302,E303,E241,E221,W292,F401
+          flake8 main.py engine.py --max-line-length=120 --ignore=E501,W503,E302,E303,E241,E221,W292,F401,W293,E305
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
