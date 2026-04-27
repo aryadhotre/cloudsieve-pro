@@ -245,5 +245,6 @@ def run_full_pipeline(file_path: str, fuzzy_col: str = "name", threshold: int = 
         "raw_count":     len(df_raw),
         "clean_count":   len(df),
         "clean_data":    clean_records,
+        "full_df":       df,
         "columns":       list(df.columns)
     }

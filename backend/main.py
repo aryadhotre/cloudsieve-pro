@@ -129,7 +129,11 @@ def run_pipeline_in_thread(job_id, file_path, fuzzy_col, threshold):
 
         # Save clean CSV
         clean_path = OUTPUT_DIR / f"{job_id}_clean.csv"
-        pd.DataFrame(result["clean_data"]).to_csv(clean_path, index=False)
+        result["full_df"].to_csv(clean_path, index=False)
+        
+        # Remove the dataframe from the result dict before storing in memory/history
+        # because it cannot be JSON serialized
+        del result["full_df"]
 
         # Compute output checksum
         output_hash = file_checksum(str(clean_path)) if clean_path.exists() else None
