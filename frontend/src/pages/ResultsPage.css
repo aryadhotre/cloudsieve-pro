@@ -106,24 +106,27 @@
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* ── Tabs ── */
+/* ── Tabs (Segmented Control) ── */
 .tabs {
-  display: flex;
-  gap: 24px;
-  border-bottom: 1px solid var(--border);
+  display: inline-flex;
+  background: var(--bg-s);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+  gap: 4px;
   margin-bottom: 24px;
 }
 
 .tab-btn {
-  background: none;
-  border: none;
+  background: transparent;
+  border: 1px solid transparent;
   color: var(--text-m);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 0 0 12px 0;
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  position: relative;
-  transition: color 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .tab-btn:hover {
@@ -131,16 +134,8 @@
 }
 
 .tab-btn.active {
-  color: var(--text);
-}
-
-.tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 2px 2px 0 0;
+  background: var(--bg-t);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
