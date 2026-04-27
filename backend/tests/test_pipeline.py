@@ -64,7 +64,7 @@ class TestExactDedup:
 
 class TestFuzzyDedup:
     def test_finds_fuzzy_matches(self, sample_df):
-        df_deduped, _, _ = exact_dedup(sample_df)
+        df_deduped, _ = exact_dedup(sample_df)
         df, removed, matches = fuzzy_dedup(df_deduped, "name", threshold=80)
         assert isinstance(matches, list)
 
