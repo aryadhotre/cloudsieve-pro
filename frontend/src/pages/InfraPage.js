@@ -11,6 +11,13 @@ const SERVICE_ICONS = {
   containerization: '🐳', iac: '⟐', cicd: '⟲', hosting: '☁',
 };
 
+const SERVICE_URLS = {
+  'Docker': 'https://hub.docker.com',
+  'Terraform': 'https://registry.terraform.io/',
+  'GitHub Actions': 'https://github.com/features/actions',
+  'Render.com': 'https://dashboard.render.com',
+};
+
 export default function InfraPage() {
   const [infra, setInfra] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,16 +43,19 @@ export default function InfraPage() {
 
       {/* ── Service Cards ── */}
       <div className="bento-grid bento-4 animate-in animate-in-1" style={{marginBottom:20}}>
-        {services.map((svc, i) => (
-          <div key={i} className="service-card">
-            <div className="svc-icon">{SERVICE_ICONS[svc.type] || '◆'}</div>
-            <div className="svc-name">{svc.name}</div>
-            <span className={`badge ${svc.status === 'active' || svc.status === 'applied' || svc.status === 'passing' || svc.status === 'deployed' ? 'badge-emerald' : 'badge-amber'}`}>
-              {svc.status}
-            </span>
-            <div className="svc-type">{svc.type}</div>
-          </div>
-        ))}
+        {services.map((svc, i) => {
+          const url = SERVICE_URLS[svc.name] || '#';
+          return (
+            <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="service-card" style={{textDecoration: 'none', color: 'inherit'}}>
+              <div className="svc-icon">{SERVICE_ICONS[svc.type] || '◆'}</div>
+              <div className="svc-name">{svc.name}</div>
+              <span className={`badge ${svc.status === 'active' || svc.status === 'applied' || svc.status === 'passing' || svc.status === 'deployed' ? 'badge-emerald' : 'badge-amber'}`}>
+                {svc.status}
+              </span>
+              <div className="svc-type">{svc.type}</div>
+            </a>
+          );
+        })}
       </div>
 
       {/* ── Terraform Resource Graph ── */}
