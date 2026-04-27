@@ -16,9 +16,7 @@ services:
 
   - type: web
     name: cloudsieve-frontend
-    runtime: static
-    region: oregon
-    plan: free
+    env: static
     buildCommand: "cd frontend && npm ci && npm run build"
     staticPublishPath: frontend/build
     headers:
