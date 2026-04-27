@@ -73,26 +73,42 @@ def fuzzy_dedup(df: pd.DataFrame, col: str, threshold: int = 85):
     if col not in df.columns:
         return df, 0, []
 
-    values = df[col].dropna().tolist()
-    drop_indices = set()
+    # Get unique non-null values to avoid O(N^2) on full dataset
+    # If there are too many unique values, limit to top 2000 to prevent server hangs
+    value_counts = df[col].dropna().value_counts()
+    unique_values = value_counts.nlargest(2000).index.tolist()
+    
+    drop_values = set()
     matches_found = []
 
-    for i in range(len(values)):
-        for j in range(i + 1, len(values)):
-            score = fuzz.ratio(str(values[i]), str(values[j]))
+    for i in range(len(unique_values)):
+        val_i = str(unique_values[i])
+        # Skip if already marked for dropping
+        if unique_values[i] in drop_values:
+            continue
+            
+        for j in range(i + 1, len(unique_values)):
+            if unique_values[j] in drop_values:
+                continue
+                
+            val_j = str(unique_values[j])
+            score = fuzz.ratio(val_i, val_j)
+            
             if score >= threshold:
-                idx_j = df[df[col] == values[j]].index.tolist()
-                for idx in idx_j:
-                    if idx not in drop_indices:
-                        drop_indices.add(idx)
-                        matches_found.append({
-                            "original":   str(values[i]),
-                            "duplicate":  str(values[j]),
-                            "similarity": score
-                        })
+                drop_values.add(unique_values[j])
+                if len(matches_found) < 50:
+                    matches_found.append({
+                        "original":   val_i,
+                        "duplicate":  val_j,
+                        "similarity": score
+                    })
 
-    df = df.drop(index=list(drop_indices)).reset_index(drop=True)
-    return df, len(drop_indices), matches_found
+    if drop_values:
+        drop_indices = df[df[col].isin(drop_values)].index
+        df = df.drop(index=drop_indices).reset_index(drop=True)
+        return df, len(drop_indices), matches_found
+
+    return df, 0, matches_found
 
 
 
