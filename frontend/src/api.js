@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8001';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8001';
 
 const API = axios.create({ baseURL: BASE_URL });
 
@@ -35,7 +35,11 @@ export const getEndpoints = () => API.get('/api/endpoints');
 
 // WebSocket connection for real-time pipeline progress
 export const createPipelineWS = (jobId, onMessage, onClose) => {
-  const ws = new WebSocket(`ws://localhost:8001/ws/pipeline/${jobId}`);
+  const wsProtocol = BASE_URL.startsWith('https') ? 'wss://' : 'ws://';
+  const wsDomain = BASE_URL.replace(/^https?:\/\//, '');
+  const wsUrl = `${wsProtocol}${wsDomain}/ws/pipeline/${jobId}`;
+  
+  const ws = new WebSocket(wsUrl);
   ws.onmessage = (event) => {
     try { onMessage(JSON.parse(event.data)); } catch(e) {}
   };
