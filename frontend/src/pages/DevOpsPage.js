@@ -121,6 +121,84 @@ export default function DevOpsPage() {
         </div>
       </div>
 
+      {/* ── Observability & Monitoring Links ── */}
+      <div className="card animate-in animate-in-3" style={{marginTop:16}}>
+        <div className="card-title">Observability & Monitoring Stack</div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))',gap:12,marginTop:12}}>
+          <a href={`http://${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}:3000`} target="_blank" rel="noreferrer" style={{textDecoration:'none'}}>
+            <div className="container-card" style={{cursor:'pointer',transition:'border-color 0.2s',borderColor:'rgba(255,255,255,0.1)'}}>
+              <div className="cc-header">
+                <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>📊 Grafana</span>
+                <span className="badge badge-emerald">Port 3000</span>
+              </div>
+              <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Live dashboards & metrics visualizer (admin/admin)</div>
+            </div>
+          </a>
+          <a href={`http://${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}:9090`} target="_blank" rel="noreferrer" style={{textDecoration:'none'}}>
+            <div className="container-card" style={{cursor:'pointer',transition:'border-color 0.2s',borderColor:'rgba(255,255,255,0.1)'}}>
+              <div className="cc-header">
+                <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>🔥 Prometheus</span>
+                <span className="badge badge-emerald">Port 9090</span>
+              </div>
+              <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Scraping targets, TSDB & PromQL query engine</div>
+            </div>
+          </a>
+          <a href={`http://${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}:9093`} target="_blank" rel="noreferrer" style={{textDecoration:'none'}}>
+            <div className="container-card" style={{cursor:'pointer',transition:'border-color 0.2s',borderColor:'rgba(255,255,255,0.1)'}}>
+              <div className="cc-header">
+                <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>🔔 Alertmanager</span>
+                <span className="badge badge-emerald">Port 9093</span>
+              </div>
+              <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Alert rules, notification routing & silences</div>
+            </div>
+          </a>
+          <a href={`http://${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}:8000/docs`} target="_blank" rel="noreferrer" style={{textDecoration:'none'}}>
+            <div className="container-card" style={{cursor:'pointer',transition:'border-color 0.2s',borderColor:'rgba(255,255,255,0.1)'}}>
+              <div className="cc-header">
+                <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>⚡ FastAPI Docs</span>
+                <span className="badge badge-emerald">Port 8000</span>
+              </div>
+              <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Interactive Swagger UI & API documentation</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      {/* ── DevSecOps & Security Tools ── */}
+      <div className="card animate-in animate-in-3" style={{marginTop:16}}>
+        <div className="card-title">DevSecOps Security & Quality Gates</div>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))',gap:12,marginTop:12}}>
+          <div className="container-card" style={{borderColor:'rgba(99,102,241,0.2)'}}>
+            <div className="cc-header">
+              <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>🛡️ SonarQube / SonarCloud</span>
+              <span className="badge badge-cyan">Quality Gate</span>
+            </div>
+            <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Automated SAST code quality, coverage & bug detection</div>
+          </div>
+          <div className="container-card" style={{borderColor:'rgba(16,185,129,0.2)'}}>
+            <div className="cc-header">
+              <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>🔍 Trivy Vulnerability Scanner</span>
+              <span className="badge badge-emerald">Active</span>
+            </div>
+            <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Container image CVE, OS package & misconfiguration scanning</div>
+          </div>
+          <div className="container-card" style={{borderColor:'rgba(245,158,11,0.2)'}}>
+            <div className="cc-header">
+              <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>🔒 Bandit SAST</span>
+              <span className="badge badge-amber">Active</span>
+            </div>
+            <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Python AST security analyzer for CWE vulnerabilities</div>
+          </div>
+          <div className="container-card" style={{borderColor:'rgba(59,130,246,0.2)'}}>
+            <div className="cc-header">
+              <span className="cc-name" style={{display:'flex',alignItems:'center',gap:6}}>☸️ Kubernetes (k3s)</span>
+              <span className="badge badge-emerald">Port 6443</span>
+            </div>
+            <div style={{fontSize:12,color:'var(--text-m)',marginTop:6}}>Active cluster control plane with CoreDNS & Metrics-Server</div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Deployments ── */}
       <div className="card animate-in animate-in-4" style={{marginTop:16}}>
         <div className="card-title">Recent Deployments</div>

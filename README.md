@@ -1,6 +1,6 @@
 # ☁️ CloudSieve Pro — Enterprise Data Quality Platform
 
-[![CI/CD Pipeline](https://github.com/aryadhotre/cloudsieve-pro/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/aryadhotre/cloudsieve-pro/actions)
+[![CI/CD Pipeline](https://github.com/am4352/cloudsieve-pro/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/am4352/cloudsieve-pro/actions)
 [![Live on Render](https://img.shields.io/badge/Render-Live%20Deployment-46E3B7?logo=render&logoColor=white)](https://dashboard.render.com)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://hub.docker.com)
 [![Terraform](https://img.shields.io/badge/Terraform-IaC%20Provisioned-844FBA?logo=terraform&logoColor=white)](https://registry.terraform.io)
@@ -119,16 +119,32 @@ python -m flake8 main.py engine.py --max-line-length=120
 
 ---
 
-## ☁️ Cloud & DevOps Services Used
+## ☁️ Cloud, DevOps & Monitoring Services
 
-| Service | Category | Function |
-|---|---|---|
-| **GitHub Actions** | PaaS | Automated CI/CD (Lint, Test, Docker Build, Deploy) |
-| **Render.com** | PaaS | Production web service & edge static site hosting |
-| **Docker** | IaaS | Containerization of backend & frontend services |
-| **Terraform** | IaaS | Declarative Infrastructure-as-Code for container topology |
-| **FastAPI** | SaaS API | RESTful & WebSocket real-time data engine |
-| **React** | SaaS UI | Modern, high-contrast client interface |
+| Service | Category | Function | Endpoint / Port |
+|---|---|---|---|
+| **FastAPI Backend** | Application API | Data quality engine, REST APIs & WebSocket | Port `8000` (`/docs`, `/health`) |
+| **React Frontend** | Client UI | Responsive dashboard & dataset cleaner | Port `80` & `3000` |
+| **Prometheus** | Monitoring | Time-series metrics collection & scraping | Port `9090` |
+| **Grafana** | Visualization | Live performance & resource telemetry dashboards | Port `3001` (admin/admin) |
+| **Alertmanager** | Alerting | Multi-tier alerting for outages, latency & anomalies | Port `9093` |
+| **Node Exporter** | Host Telemetry | Host-level OS metrics (CPU, RAM, disk, network) | Port `9100` (`/metrics`) |
+| **Docker Compose** | Container Orchestration | Multi-container microservices management | Root `/docker` |
+| **GitHub Actions** | CI/CD Automation | 4-stage pipeline (Lint, Test, Docker Build, Deploy) | `.github/workflows/ci-cd.yml` |
+
+---
+
+## 📊 Monitoring & Alerts Architecture
+
+CloudSieve Pro integrates an enterprise observability stack:
+1. **Metrics Scraping**: Prometheus periodically scrapes FastAPI `/metrics`, Node Exporter `/metrics`, and Alertmanager.
+2. **Alert Rules**: Pre-configured in `monitoring/prometheus/alert.rules.yml` for:
+   - `CloudSieveBackendDown` — triggered if the backend service stops responding.
+   - `HighHttpErrorRate` — triggered if 5xx error rate exceeds threshold.
+   - `HighRequestLatency` — triggered if p95 latency exceeds 2 seconds.
+   - `HostHighCpuLoad` / `HostHighMemoryUsage` / `HostDiskLowSpace` — host saturation alerts.
+3. **Alertmanager Routing**: Routes and deduplicates alerts defined in `monitoring/alertmanager/alertmanager.yml`.
+4. **Grafana Dashboards**: Automatically provisioned with the `CloudSieve Pro — Overview` dashboard tracking live CQI scores, active jobs, request throughput, and system health.
 
 ---
 
